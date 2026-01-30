@@ -12,7 +12,7 @@ const Hero = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <h1 style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1.1, marginBottom: '1.5rem', fontWeight: 700 }}>
-                        Construindo <span className="gradient-text">Inteligência</span><br />
+                        Construindo <span className="gradient-text">Qualidade</span><br />
                         em <span className="gradient-text">Software</span>.
                     </h1>
 
@@ -42,13 +42,13 @@ const Hero = () => {
                         </motion.a>
 
                         <div style={{ display: 'flex', gap: '1.5rem', fontSize: '1.5rem', marginLeft: '1rem' }}>
-                            <motion.a whileHover={{ y: -3, color: 'var(--primary)' }} href="https://github.com" target="_blank" style={{ color: 'var(--text-main)', transition: 'color 0.3s' }}><FaGithub /></motion.a>
-                            <motion.a whileHover={{ y: -3, color: 'var(--primary)' }} href="https://linkedin.com" target="_blank" style={{ color: 'var(--text-main)', transition: 'color 0.3s' }}><FaLinkedin /></motion.a>
+                            <motion.a whileHover={{ y: -3, color: 'var(--primary)' }} href="https://github.com/Fabimhso" target="_blank" style={{ color: 'var(--text-main)', transition: 'color 0.3s' }}><FaGithub /></motion.a>
+                            <motion.a whileHover={{ y: -3, color: 'var(--primary)' }} href="https://www.linkedin.com/in/fabianooliveiraoficial" target="_blank" style={{ color: 'var(--text-main)', transition: 'color 0.3s' }}><FaLinkedin /></motion.a>
                         </div>
                     </div>
                 </motion.div>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 };
 
