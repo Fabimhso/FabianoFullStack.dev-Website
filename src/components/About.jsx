@@ -41,7 +41,7 @@ const education = [
     {
         type: "Técnico",
         title: "Redes de Computadores",
-        institution: "UNOPAR",
+        institution: "Universidade Norte do Paraná",
         desc: "1º lugar no vestibular."
     }
 ];

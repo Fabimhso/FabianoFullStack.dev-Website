@@ -24,7 +24,7 @@ const Hero = () => {
                         <motion.a
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            href="#contato"
+                            href="mailto:hsofabi05@gmail.com"
                             style={{
                                 background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
                                 color: 'white',

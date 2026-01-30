@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaPaperPlane } from 'react-icons/fa';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const Contact = () => {
     return (
@@ -13,13 +13,15 @@ const Contact = () => {
             }}>
                 <h2 style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>Vamos trabalhar <span className="gradient-text">juntos</span></h2>
                 <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto 3rem' }}>
-                    Tem um projeto em mente? Estou aceitando novas oportunidades de freelance e consultas full-time.
+                    Tem um projeto em mente? Estou aceitando novos projetos e demandas.
                 </p>
 
                 <motion.a
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    href="mailto:contact@fabianofullstack.dev" // Email fictício
+                    href="https://wa.me/5521967482533"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -33,7 +35,7 @@ const Contact = () => {
                         fontSize: '1.1rem'
                     }}
                 >
-                    <FaPaperPlane /> Diga Olá
+                    <FaWhatsapp /> Diga Olá
                 </motion.a>
             </div>
 

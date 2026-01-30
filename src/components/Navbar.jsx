@@ -43,7 +43,7 @@ const Navbar = () => {
                     textDecoration: 'none',
                     fontFamily: 'var(--font-heading)'
                 }}>
-                    Fabiano<span className="gradient-text">FullStack</span>.dev
+                    <span className="gradient-text">{'{'}</span>Fabiano<span className="gradient-text">FullStack</span>.dev<span className="gradient-text">{'}'}</span>
                 </a>
 
                 {/* Desktop Menu */}
