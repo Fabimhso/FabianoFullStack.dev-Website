@@ -11,17 +11,13 @@ const Hero = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <h2 style={{ color: 'var(--primary)', fontSize: '1.2rem', marginBottom: '1rem', letterSpacing: '2px', fontWeight: 600 }}>
-                        FABIANOFULLSTACK.DEV
-                    </h2>
                     <h1 style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1.1, marginBottom: '1.5rem', fontWeight: 700 }}>
                         Construindo <span className="gradient-text">Inteligência</span><br />
                         em <span className="gradient-text">Software</span>.
                     </h1>
 
                     <p style={{ maxWidth: '600px', color: 'var(--text-muted)', fontSize: '1.2rem', marginBottom: '2.5rem' }}>
-                        Engenheiro Full-Stack especializado em IA, Cloud e Sistemas de Alta Performance.
-                        Transformando desafios complexos em soluções elegantes.
+                        Engenheiro Full-Stack especializado em construir aplicações robustas, especialista em IA.
                     </p>
 
                     <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
