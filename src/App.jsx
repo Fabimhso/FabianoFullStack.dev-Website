@@ -6,6 +6,9 @@ import Projects from './components/Projects'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
 
+import { Routes, Route } from 'react-router-dom'
+import AllProjects from './components/AllProjects'
+
 function App() {
     return (
         <div className="app-container">
@@ -16,11 +19,18 @@ function App() {
                 <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '60%', height: '60%', background: 'var(--secondary)', filter: 'blur(150px)', opacity: 0.05, borderRadius: '50%' }} />
             </div>
 
-            <Hero />
-            <Projects />
-            <About />
-            <Experience />
-            <Contact />
+            <Routes>
+                <Route path="/" element={
+                    <>
+                        <Hero />
+                        <Projects />
+                        <About />
+                        <Experience />
+                        <Contact />
+                    </>
+                } />
+                <Route path="/projetos" element={<AllProjects />} />
+            </Routes>
         </div>
     )
 }

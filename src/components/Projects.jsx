@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { FaCrown, FaTrophy, FaGlobe } from 'react-icons/fa';
 
 const projects = [
@@ -14,7 +15,6 @@ const projects = [
     {
         title: "SuaSecretária.app",
         subtitle: "Em uso por +200 escritórios",
-        tier: "silver",
         icon: <FaTrophy />,
         desc: "Automação inteligente para gestão jurídica e atendimento.",
         link: "#"
@@ -58,6 +58,8 @@ const getTierStyles = (tier) => {
 };
 
 const Projects = () => {
+    const navigate = useNavigate();
+
     return (
         <section id="projetos" className="section-padding" style={{ paddingBottom: '100px', paddingTop: '100px' }}>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '4rem', textAlign: 'center' }}>
@@ -130,6 +132,7 @@ const Projects = () => {
 
             <div style={{ textAlign: 'center' }}>
                 <motion.button
+                    onClick={() => navigate('/projetos')}
                     whileHover={{ scale: 1.05, boxShadow: '0 0 30px var(--primary-dim)' }}
                     whileTap={{ scale: 0.95 }}
                     style={{
