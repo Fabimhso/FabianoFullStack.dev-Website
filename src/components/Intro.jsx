@@ -557,14 +557,16 @@ const Intro = ({ onEnter }) => {
                                 <div style={{
                                     display: 'inline-block',
                                     border: '1px solid rgba(255,255,255,0.1)',
-                                    padding: '2rem 4rem',
+                                    padding: 'clamp(1rem, 5vw, 2rem) clamp(1rem, 5vw, 4rem)', // Responsive padding
                                     background: 'rgba(0,0,0,0.4)',
-                                    backdropFilter: 'blur(10px)'
+                                    backdropFilter: 'blur(10px)',
+                                    maxWidth: '90vw', // Prevent overflow
+                                    boxSizing: 'border-box'
                                 }}>
                                     <p style={{
                                         fontFamily: "'Courier New', monospace",
                                         color: 'var(--text-muted)',
-                                        fontSize: '0.9rem',
+                                        fontSize: 'clamp(0.7rem, 2vw, 0.9rem)', // Responsive font
                                         letterSpacing: '0.2rem',
                                         marginBottom: '1rem',
                                         textTransform: 'uppercase'
@@ -572,11 +574,12 @@ const Intro = ({ onEnter }) => {
                                         System Ready
                                     </p>
                                     <h1 style={{
-                                        fontSize: '3.5rem',
+                                        fontSize: 'clamp(1.5rem, 6vw, 2.8rem)', // Reduced size to prevent overflow
                                         fontFamily: 'var(--font-heading)',
                                         color: '#fff',
                                         marginBottom: '0.5rem',
-                                        letterSpacing: '-2px'
+                                        letterSpacing: '-2px',
+                                        lineHeight: '1.2'
                                     }}>
                                         FABIANO<span style={{ color: 'var(--primary)' }}>FULLSTACK</span>.DEV
                                     </h1>
@@ -590,14 +593,15 @@ const Intro = ({ onEnter }) => {
                                                 color: '#000',
                                                 border: 'none',
                                                 padding: '1rem 2.5rem',
-                                                fontSize: '1rem',
+                                                fontSize: 'clamp(0.8rem, 3vw, 1rem)', // Responsive button text
                                                 fontFamily: 'var(--font-heading)',
                                                 fontWeight: '700',
                                                 cursor: 'pointer',
                                                 textTransform: 'uppercase',
                                                 letterSpacing: '1px',
-                                                clipPath: 'polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)', // Sci-fi Shape
-                                                transition: 'all 0.2s ease'
+                                                clipPath: 'polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)',
+                                                transition: 'all 0.2s ease',
+                                                whiteSpace: 'nowrap'
                                             }}
                                             onMouseEnter={(e) => {
                                                 e.target.style.background = 'var(--primary)'
