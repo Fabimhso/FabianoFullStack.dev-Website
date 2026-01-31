@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const experiences = [
-    { role: "Engenheiro de Software / IA (Fundador)", company: "Alnitak Vision AI", period: "2025 - Atual", desc: "Liderando inovação em IA." },
+    { role: "Engenheiro Fundador de Software / IA", company: "Alnitak Vision AI", period: "2025 - Atual", desc: "Liderando inovação em IA." },
     { role: "Engenheiro de Software / IA (Contrato)", company: "Escritório Jurídico Eduardo Mesquita", period: "2025 - 2025", desc: "Soluções de IA para Legal Tech." },
     { role: "Engenheiro de Software Estagiário", company: "FullStore", period: "2025 - Atual", desc: "Desenvolvimento Full-Stack." },
     { role: "Engenheiro Full-Stack (Freelancer)", company: "FabianoFullStack.dev", period: "2023 - 2024", desc: "Entrega de soluções de software personalizadas." },
