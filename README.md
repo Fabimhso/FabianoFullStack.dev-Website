@@ -4,7 +4,7 @@ Project built with modern web technologies to showcase my work as a Full-Stack E
 
 DONT USE. THIS IS NOT A OPEN SOURCE PROJECT. THIS IS A PRIVATE PROJECT.
 
-## 🛠️ Tecnologias Usadas
+## 🛠️ Technologies
 
 - **Core**: React.js
 - **Build Tool**: Vite
@@ -12,7 +12,7 @@ DONT USE. THIS IS NOT A OPEN SOURCE PROJECT. THIS IS A PRIVATE PROJECT.
 - **Icons**: React Icons
 - **Routing**: React Router DOM
 
-## 🚀 Como Rodar
+## 🚀 How to run
 
 ### Install
 ```bash
