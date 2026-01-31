@@ -5,7 +5,7 @@ const experiences = [
     { role: "Engenheiro de Software / IA (Fundador)", company: "Alnitak Vision AI", period: "2025 - Atual", desc: "Liderando inovação em IA." },
     { role: "Engenheiro de Software / IA (Contrato)", company: "Escritório Jurídico Eduardo Mesquita", period: "2025 - 2025", desc: "Soluções de IA para Legal Tech." },
     { role: "Engenheiro de Software Estagiário", company: "FullStore", period: "2025 - Atual", desc: "Desenvolvimento Full-Stack." },
-    { role: "Freelancer", company: "FabianoFullStack.dev", period: "2023 - 2024", desc: "Entrega de soluções de software personalizadas." },
+    { role: "Engenheiro Full-Stack (Freelancer)", company: "FabianoFullStack.dev", period: "2023 - 2024", desc: "Entrega de soluções de software personalizadas." },
     { role: "Engenheiro Full-Stack", company: "Rikz Company", period: "2022 - 2023", desc: "Desenvolvimento de aplicações web de ponta a ponta." },
     { role: "Analista de Banco de Dados", company: "Alterdata Software", period: "2022", desc: "Gestão e otimização de bancos de dados." },
     { role: "Desenvolvedor Pawno", company: "Servidor GTA SAMP", period: "2012 - 2015", desc: "Experiência inicial com scripting de jogos." },
