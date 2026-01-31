@@ -219,70 +219,142 @@ const DataStream = ({ collapse }) => {
     )
 }
 
-// "THE EAGLE" - Wireframe Geometric Construct
+// "THE EAGLE" - Complex Procedural Wireframe
 const DigitalEagle = ({ trigger }) => {
     const group = useRef()
     const [active, setActive] = useState(false)
 
+    // Sequence timing logic
     useEffect(() => {
         if (trigger) {
-            const timer = setTimeout(() => setActive(true), 300) // Delay spawn after shake starts
+            const timer = setTimeout(() => setActive(true), 300)
             return () => clearTimeout(timer)
         }
     }, [trigger])
 
+    // Flight Animation
     useFrame((state, delta) => {
         if (active && group.current) {
-            // Fly forward from Z -200 to Z 60 (near camera at 80)
-            // Distance = 260 units.
-            // Time target = ~3 seconds
-            // Speed = ~85 units/sec
-            group.current.position.z += delta * 230
+            // Speed matched to timing (230 units/s)
+            group.current.position.z += delta * 260
 
-            // Flap wings (rotate side groups)
-            const flap = Math.sin(state.clock.elapsedTime * 12) * 0.5
-            group.current.children[1].rotation.z = flap // Left Wing
-            group.current.children[2].rotation.z = -flap // Right Wing
+            // Complex Flapping Animation
+            const t = state.clock.elapsedTime
+            const flapSpeed = 12
+            const baseFlap = Math.sin(t * flapSpeed)
+
+            // Access Wing Groups (indices based on structure below)
+            const leftWing = group.current.children[1]
+            const rightWing = group.current.children[2]
+
+            // Articulated movement
+            leftWing.rotation.z = baseFlap * 0.4
+            leftWing.rotation.y = baseFlap * 0.2
+
+            rightWing.rotation.z = -baseFlap * 0.4
+            rightWing.rotation.y = -baseFlap * 0.2
+
+            // Banking effect
+            group.current.rotation.z = Math.sin(t * 2) * 0.1
+
+            // Head Look (Dynamic)
+            // group.current.children[0].children[1].lookAt(0, 0, 80) // Optional dynamic look
         }
     })
+
+    // Wing Builder
+    const Wing = ({ side }) => {
+        const feathers = []
+        const count = 16 // More feathers
+        const dir = side === 'left' ? 1 : -1
+
+        for (let i = 0; i < count; i++) {
+            const angle = (i / count) * Math.PI * 0.7
+            feathers.push(
+                <mesh key={i} position={[dir * (2 + i * 1.0), 0, i * 0.3]} rotation={[0, 0, dir * (Math.PI / 2 - angle * 0.6)]}>
+                    <coneGeometry args={[0.3, 14, 2]} />
+                    <meshBasicMaterial color={i < 8 ? "#ff1f1f" : "#ffffff"} wireframe wireframeLinewidth={1.5} toneMapped={false} />
+                </mesh>
+            )
+        }
+        return <group>{feathers}</group>
+    }
 
     if (!active) return null
 
     return (
-        <group ref={group} position={[0, -5, -200]} rotation={[0.2, 0, 0]}>
-            {/* Head/Body - Pyramid */}
-            <mesh rotation={[Math.PI / 2, 0, 0]}>
-                <coneGeometry args={[4, 15, 3]} /> {/* Sharp pyramid */}
-                <meshBasicMaterial color="#ffffff" wireframe wireframeLinewidth={2} toneMapped={false} />
-            </mesh>
+        <group ref={group} position={[0, 0, -200]} rotation={[0, 0, 0]}> {/* Y=0 to hit center camera */}
 
-            {/* Left Wing */}
-            <group position={[-2, 0, 0]}>
-                <mesh position={[-8, 0, 5]} rotation={[Math.PI / 2, 0, 0.5]}>
-                    <bufferGeometry>
-                        <float32BufferAttribute attach="attributes-position" count={3} array={new Float32Array([
-                            0, 0, 0,
-                            -15, 10, 0,
-                            -5, -10, 0
-                        ])} itemSize={3} />
-                    </bufferGeometry>
-                    <meshBasicMaterial color="#ff0033" wireframe side={THREE.DoubleSide} toneMapped={false} />
+            {/* --- BODY & HEAD --- */}
+            <group rotation={[Math.PI / 2, 0, 0]}>
+                {/* Torso - Abstract Ribcage */}
+                <mesh>
+                    <cylinderGeometry args={[1.5, 3, 7, 6, 2, true]} />
+                    <meshBasicMaterial color="#ffffff" wireframe wireframeLinewidth={1} toneMapped={false} />
                 </mesh>
+
+                {/* HEAD GROUP - Detailed */}
+                <group position={[0, 5, 0.5]} rotation={[-0.2, 0, 0]}>
+                    {/* Skull - Faceted */}
+                    <mesh>
+                        <dodecahedronGeometry args={[1.8, 0]} />
+                        <meshBasicMaterial color="#ffffff" wireframe wireframeLinewidth={1.5} toneMapped={false} />
+                    </mesh>
+
+                    {/* Brow Ridge */}
+                    <mesh position={[0, 0.5, 0.8]} rotation={[0.5, 0, 0]} scale={[1.2, 0.5, 1]}>
+                        <boxGeometry args={[1.5, 1, 1]} />
+                        <meshBasicMaterial color="#ffffff" wireframe toneMapped={false} />
+                    </mesh>
+
+                    {/* Beak - Curved Upper */}
+                    <mesh position={[0, -0.5, 1.5]} rotation={[0.5, 0, 0]}>
+                        <coneGeometry args={[0.6, 2.5, 4]} />
+                        <meshBasicMaterial color="#ff1f1f" wireframe toneMapped={false} />
+                    </mesh>
+                    {/* Beak - Hook */}
+                    <mesh position={[0, -1.5, 1.8]} rotation={[-2.5, 0, 0]}>
+                        <coneGeometry args={[0.3, 1.5, 3]} />
+                        <meshBasicMaterial color="#ff1f1f" wireframe toneMapped={false} />
+                    </mesh>
+
+                    {/* GLOWING EYES */}
+                    <group position={[0, 0.2, 1]}>
+                        {/* Right Eye */}
+                        <mesh position={[0.8, 0, 0]}>
+                            <sphereGeometry args={[0.25, 8, 8]} />
+                            <meshBasicMaterial color="#ff0000" toneMapped={false} />
+                            <pointLight color="#ff0000" distance={10} intensity={2} decay={1} />
+                        </mesh>
+                        {/* Left Eye */}
+                        <mesh position={[-0.8, 0, 0]}>
+                            <sphereGeometry args={[0.25, 8, 8]} />
+                            <meshBasicMaterial color="#ff0000" toneMapped={false} />
+                            <pointLight color="#ff0000" distance={10} intensity={2} decay={1} />
+                        </mesh>
+                    </group>
+                </group>
+
+                {/* Tail */}
+                <group position={[0, -4, 0]}>
+                    {[...Array(7)].map((_, i) => (
+                        <mesh key={i} rotation={[0, 0, (i - 3) * 0.2]} position={[0, -2, 0]}>
+                            <coneGeometry args={[0.4, 8, 2]} />
+                            <meshBasicMaterial color="#a800ff" wireframe />
+                        </mesh>
+                    ))}
+                </group>
             </group>
 
-            {/* Right Wing */}
-            <group position={[2, 0, 0]}>
-                <mesh position={[8, 0, 5]} rotation={[Math.PI / 2, 0, -0.5]}>
-                    <bufferGeometry>
-                        <float32BufferAttribute attach="attributes-position" count={3} array={new Float32Array([
-                            0, 0, 0,
-                            15, 10, 0,
-                            5, -10, 0
-                        ])} itemSize={3} />
-                    </bufferGeometry>
-                    <meshBasicMaterial color="#ff0033" wireframe side={THREE.DoubleSide} toneMapped={false} />
-                </mesh>
+            {/* --- WINGS --- */}
+            <group position={[-1.5, 1, 0]}>
+                <Wing side="left" />
             </group>
+
+            <group position={[1.5, 1, 0]}>
+                <Wing side="right" />
+            </group>
+
         </group>
     )
 }
@@ -328,18 +400,18 @@ const Intro = ({ onEnter }) => {
     const handleEnter = () => {
         setExiting(true)
 
-        // Sequence Timing: TARGET 2.4s FLASH
+        // Sequence Timing matches user request
         // 0s: Earthquake Starts
         // 0.3s: Eagle Spawns
-        // 2.4s: IMPACT FLASH matches user request
+        // 1.7s: IMPACT FLASH (User setting)
 
         setTimeout(() => {
             setFlash(true) // TRIGGER FLASH
-        }, 1700) // 1.7s
+        }, 1700)
 
         setTimeout(() => {
             onEnter() // SWITCH SITES
-        }, 2000) // 2.0s
+        }, 2000)
     }
 
     const displayProgress = Math.min(100, Math.floor(progress))
