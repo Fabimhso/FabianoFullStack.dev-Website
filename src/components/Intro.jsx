@@ -523,7 +523,7 @@ const Intro = ({ onEnter }) => {
                                 marginBottom: '5px',
                                 textTransform: 'uppercase'
                             }}>
-                                Initialize Protocol...
+                                Inicializando Sistema...
                             </div>
                             {/* Brutalist Progress Bar */}
                             <div style={{ width: '100%', height: '2px', background: '#333', position: 'relative', marginBottom: '10px' }}>
@@ -571,7 +571,7 @@ const Intro = ({ onEnter }) => {
                                         marginBottom: '1rem',
                                         textTransform: 'uppercase'
                                     }}>
-                                        System Ready
+                                        Sistema Pronto
                                     </p>
                                     <h1 style={{
                                         fontSize: 'clamp(1.5rem, 6vw, 2.8rem)', // Reduced size to prevent overflow
