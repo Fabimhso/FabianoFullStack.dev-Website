@@ -1,6 +1,6 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Sphere } from '@react-three/drei'
+import { Canvas, useFrame, extend } from '@react-three/fiber'
+import { OrbitControls, Sphere, shaderMaterial } from '@react-three/drei'
 import * as THREE from 'three'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
@@ -84,43 +84,109 @@ const Particles = () => {
     )
 }
 
-// Simulates a "Packet" of data or light moving through the system
+// Define Custom Shader Material
+// Define Custom Shader Material
+const NetworkMaterial = shaderMaterial(
+    {
+        uTime: 0,
+        uLightPos: new THREE.Vector3(0, 0, 0),
+        uColorBase: new THREE.Color('#220033'), // Darker Deep Purple Base
+        uColorActive: new THREE.Color('#ff0033') // Intense Neon Red
+    },
+    // Vertex Shader
+    `
+    varying vec3 vPosition;
+    void main() {
+      vPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+    // Fragment Shader
+    `
+    uniform float uTime;
+    uniform vec3 uLightPos;
+    uniform vec3 uColorBase;
+    uniform vec3 uColorActive;
+    varying vec3 vPosition;
+
+    void main() {
+      // Calculate distance from light to this fragment
+      float dist = distance(vPosition, uLightPos);
+      
+      // Illumination radius - INCREASED
+      float radius = 45.0; 
+      
+      // Intensity falls off with distance
+      float intensity = 1.0 - smoothstep(5.0, radius, dist);
+      
+      // Sharpen the mixing curve to keep colors vibrant
+      float mixFactor = pow(intensity, 0.4);
+      vec3 finalColor = mix(uColorBase, uColorActive, mixFactor);
+      
+      // Base opacity + extra glow intensity
+      float alpha = 0.1 + (intensity * 0.9);
+
+      gl_FragColor = vec4(finalColor, alpha);
+    }
+  `
+)
+
+extend({ NetworkMaterial })
+
+// Visual representation of the Data Stream (The Red Orb)
 const DataStream = () => {
-    const lightRef = useRef()
+    const groupRef = useRef()
+    const tRef = useRef(0)
 
     useFrame(({ clock }) => {
         const t = clock.getElapsedTime()
-        if (lightRef.current) {
-            // MOVE the light in a complex organic path (Lissajous figure)
-            lightRef.current.position.x = Math.sin(t * 0.5) * 30
-            lightRef.current.position.y = Math.cos(t * 0.3) * 30
-            lightRef.current.position.z = Math.sin(t * 0.7) * 20
+        tRef.current = t
+        if (groupRef.current) {
+            groupRef.current.position.x = Math.sin(t * 0.5) * 30
+            groupRef.current.position.y = Math.cos(t * 0.3) * 30
+            groupRef.current.position.z = Math.sin(t * 0.7) * 20
         }
     })
 
     return (
-        <group>
-            {/* The actual light source */}
-            <pointLight ref={lightRef} intensity={2} distance={50} color="#ff1f1f" />
+        <group ref={groupRef}>
+            <pointLight intensity={8} distance={80} decay={2} color="#ff0033" />
 
-            {/* A visual representation of the data packet (faint glow orb) */}
-            <mesh ref={lightRef}>
-                <sphereGeometry args={[0.5, 16, 16]} />
-                <meshBasicMaterial color="#ff1f1f" transparent opacity={0.6} />
+            {/* Core */}
+            <mesh>
+                <sphereGeometry args={[1.2, 32, 32]} />
+                <meshBasicMaterial color="#ff0033" transparent opacity={1} toneMapped={false} />
+            </mesh>
+
+            {/* White Hot Center */}
+            <mesh>
+                <sphereGeometry args={[0.6, 16, 16]} />
+                <meshBasicMaterial color="#ffffff" transparent opacity={1} toneMapped={false} />
+            </mesh>
+
+            {/* Glow Layer 1 */}
+            <mesh>
+                <sphereGeometry args={[3.5, 32, 32]} />
+                <meshBasicMaterial color="#ff0033" transparent opacity={0.25} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
+            </mesh>
+
+            {/* Glow Layer 2 (Outer Halo) */}
+            <mesh>
+                <sphereGeometry args={[7, 32, 32]} />
+                <meshBasicMaterial color="#ff0000" transparent opacity={0.1} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
             </mesh>
         </group>
     )
 }
 
-// Background Network with "Flowing Light"
+// Background Network using Shader Material
 const NetworkBackground = () => {
     const linesGeometry = useMemo(() => {
         const points = []
-        const particleCount = 100 // Fewer nodes for cleaner network
-        const r = 40 // Radius of the network sphere
+        const particleCount = 120
+        const r = 45
         const nodes = []
 
-        // Generate nodes
         for (let i = 0; i < particleCount; i++) {
             const theta = Math.acos(THREE.MathUtils.randFloatSpread(2))
             const phi = Math.random() * Math.PI * 2
@@ -130,9 +196,7 @@ const NetworkBackground = () => {
             nodes.push(new THREE.Vector3(x, y, z))
         }
 
-        // Create connections
         nodes.forEach((node, i) => {
-            // Connect to 3 nearest neighbors
             const neighbors = nodes
                 .map((n, index) => ({ dist: node.distanceTo(n), index }))
                 .filter(n => n.index !== i)
@@ -145,33 +209,29 @@ const NetworkBackground = () => {
             })
         })
 
-        const geometry = new THREE.BufferGeometry().setFromPoints(points)
-        return geometry
+        return new THREE.BufferGeometry().setFromPoints(points)
     }, [])
 
-    const linesRef = useRef()
+    const materialRef = useRef()
 
-    useFrame((state) => {
-        if (linesRef.current) {
-            linesRef.current.rotation.y -= 0.001 // Rotate opposite to particles
+    useFrame(({ clock }) => {
+        if (materialRef.current) {
+            const t = clock.getElapsedTime()
+            materialRef.current.uTime = t
 
-            const time = state.clock.getElapsedTime()
-            // Pulse Red and Purple
-            const pulse = (Math.sin(time * 0.5) + 1) / 2
-
-            // Interpolate color manually roughly
-            const r = 0.6 + (pulse * 0.4) // Red dominant
-            const g = 0
-            const b = 1 - pulse // Purple/Blue fade
-
-            linesRef.current.material.color.setRGB(r, g, b)
-            linesRef.current.material.opacity = 0.1 + (pulse * 0.2)
+            // Sync Light Position EXACTLY with DataStream
+            materialRef.current.uLightPos.set(
+                Math.sin(t * 0.5) * 30,
+                Math.cos(t * 0.3) * 30,
+                Math.sin(t * 0.7) * 20
+            )
         }
     })
 
     return (
-        <lineSegments ref={linesRef} geometry={linesGeometry}>
-            <lineBasicMaterial color="#a800ff" transparent opacity={0.15} blending={THREE.AdditiveBlending} depthWrite={false} />
+        <lineSegments geometry={linesGeometry}>
+            {/* @ts-ignore */}
+            <networkMaterial ref={materialRef} transparent depthWrite={false} blending={THREE.AdditiveBlending} />
         </lineSegments>
     )
 }
