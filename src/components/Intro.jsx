@@ -219,26 +219,56 @@ const DataStream = ({ collapse }) => {
     )
 }
 
+// Audio Helper: Plays a specific slice of audio
+const playAudioClip = (file, volume, start = 0, end = null) => {
+    const audio = new Audio(file)
+    audio.volume = volume
+
+    // Wait for metadata to ensure currentTime can be set
+    audio.onloadedmetadata = () => {
+        audio.currentTime = start
+        audio.play().catch(e => console.warn("Audio play failed", e))
+
+        if (end !== null && end > start) {
+            const durationMs = (end - start) * 1000
+            setTimeout(() => {
+                // Quick fade out prevents clicking
+                const fade = setInterval(() => {
+                    if (audio.volume > 0.05) {
+                        audio.volume -= 0.05
+                    } else {
+                        audio.pause()
+                        clearInterval(fade)
+                    }
+                }, 20)
+            }, durationMs)
+        }
+    }
+}
+
 // "THE EAGLE" - Complex Procedural Wireframe
 const DigitalEagle = ({ trigger }) => {
     const group = useRef()
     const [active, setActive] = useState(false)
 
     // Sequence timing logic
+
+    // Sequence timing logic
     useEffect(() => {
         if (trigger) {
             const timer = setTimeout(() => setActive(true), 300)
 
-            // Audio: Screech
-            const screech = new Audio('/audio/eagle_screech.mp3')
-            screech.volume = 0.6
-            screech.play().catch(e => console.warn("Audio play failed", e))
+            // Audio: Screech (User: 2s to 8s)
+            playAudioClip('/audio/eagle_screech.mp3', 0.6, 2, 8)
 
             // Audio: Wings (Looping texture)
             const wings = new Audio('/audio/wings_flap.mp3')
             wings.volume = 0.4
             wings.playbackRate = 1.2
+            wings.loop = true
             wings.play().catch(e => console.warn("Audio play failed", e))
+            // Stop wings on impact
+            setTimeout(() => wings.pause(), 1700)
 
             return () => clearTimeout(timer)
         }
@@ -419,10 +449,8 @@ const Intro = ({ onEnter }) => {
 
         setTimeout(() => {
             setFlash(true) // TRIGGER FLASH
-            // Audio: Flashbang
-            const bang = new Audio('/audio/flashbang.mp3')
-            bang.volume = 0.8
-            bang.play().catch(e => console.warn("Audio play failed", e))
+            // Audio: Flashbang (User: 0.4s start)
+            playAudioClip('/audio/flashbang.mp3', 0.8, 0.8, null)
         }, 1700)
 
         setTimeout(() => {
