@@ -84,6 +84,34 @@ const Particles = () => {
     )
 }
 
+// Simulates a "Packet" of data or light moving through the system
+const DataStream = () => {
+    const lightRef = useRef()
+
+    useFrame(({ clock }) => {
+        const t = clock.getElapsedTime()
+        if (lightRef.current) {
+            // MOVE the light in a complex organic path (Lissajous figure)
+            lightRef.current.position.x = Math.sin(t * 0.5) * 30
+            lightRef.current.position.y = Math.cos(t * 0.3) * 30
+            lightRef.current.position.z = Math.sin(t * 0.7) * 20
+        }
+    })
+
+    return (
+        <group>
+            {/* The actual light source */}
+            <pointLight ref={lightRef} intensity={2} distance={50} color="#ff1f1f" />
+
+            {/* A visual representation of the data packet (faint glow orb) */}
+            <mesh ref={lightRef}>
+                <sphereGeometry args={[0.5, 16, 16]} />
+                <meshBasicMaterial color="#ff1f1f" transparent opacity={0.6} />
+            </mesh>
+        </group>
+    )
+}
+
 // Background Network with "Flowing Light"
 const NetworkBackground = () => {
     const linesGeometry = useMemo(() => {
@@ -127,12 +155,17 @@ const NetworkBackground = () => {
         if (linesRef.current) {
             linesRef.current.rotation.y -= 0.001 // Rotate opposite to particles
 
-            // Animate opacity/color to simulate "flowing light"
             const time = state.clock.getElapsedTime()
-            // We can't easily animate vertex colors on a basic LineSegments without custom shader or attributes update loop
-            // For performance and effect, we'll pulse the overall material and let rotation do the visual work
-            const pulse = (Math.sin(time) + 1) / 2 // 0 to 1
-            linesRef.current.material.opacity = 0.1 + (pulse * 0.1) // Subtle pulse
+            // Pulse Red and Purple
+            const pulse = (Math.sin(time * 0.5) + 1) / 2
+
+            // Interpolate color manually roughly
+            const r = 0.6 + (pulse * 0.4) // Red dominant
+            const g = 0
+            const b = 1 - pulse // Purple/Blue fade
+
+            linesRef.current.material.color.setRGB(r, g, b)
+            linesRef.current.material.opacity = 0.1 + (pulse * 0.2)
         }
     })
 
@@ -174,6 +207,7 @@ const Intro = ({ onEnter }) => {
 
                 <Particles />
                 <NetworkBackground />
+                <DataStream />
                 <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.3} maxPolarAngle={Math.PI / 1.5} minPolarAngle={Math.PI / 3} />
             </Canvas>
 
