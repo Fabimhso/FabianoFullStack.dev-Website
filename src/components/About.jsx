@@ -1,27 +1,66 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaCode, FaServer, FaCloud, FaBrain, FaLaptopCode } from 'react-icons/fa';
+import {
+    SiGoland, SiPython, SiNodedotjs, SiReact, SiNextdotjs, SiTypescript, SiJavascript,
+    SiDocker, SiKubernetes, SiGooglecloud, SiAmazonaws, SiPostgresql,
+    SiRedis, SiLinux, SiGit, SiGraphql, SiNestjs, SiDjango, SiFlask, SiOpenai
+} from 'react-icons/si';
+import { FaServer, FaCode, FaCloud, FaDatabase, FaRobot, FaInfinity } from 'react-icons/fa';
 
 const skillCategories = [
     {
-        title: "Back-End",
+        title: "Back-End & IA",
         icon: <FaServer />,
-        skills: ["Golang (Gin)", "Node.js (Nest.js)", "Python (Django/FastAPI/Flask)"]
+        desc: "Desenvolvimento de APIs robustas, microsserviços e integração de modelos de IA.",
+        skills: [
+            { name: "Golang", icon: <SiGoland style={{ color: '#00ADD8' }} /> },
+            { name: "Node.js", icon: <SiNodedotjs style={{ color: '#339933' }} /> },
+            { name: "Nest.js", icon: <SiNestjs style={{ color: '#E0234E' }} /> },
+            { name: "Python", icon: <SiPython style={{ color: '#3776AB' }} /> },
+            { name: "Django", icon: <SiDjango style={{ color: '#092E20' }} /> },
+            { name: "Flask", icon: <SiFlask style={{ color: '#000000' }} /> },
+            { name: "FastAPI", icon: <SiPython style={{ color: '#009688' }} /> },
+            { name: "LLM Integration", icon: <SiOpenai style={{ color: '#412991' }} /> },
+            { name: "RPA", icon: <FaRobot style={{ color: '#555555' }} /> },
+            { name: "gRPC", icon: <FaServer style={{ color: '#244c5a' }} /> },
+        ]
     },
     {
         title: "Front-End",
-        icon: <FaLaptopCode />,
-        skills: ["React.js", "Next.js", "CSS", "Tailwind/Styled"]
+        icon: <FaCode />,
+        desc: "Interfaces modernas, responsivas e amigáveis com foco em UX/UI.",
+        skills: [
+            { name: "JavaScript", icon: <SiJavascript style={{ color: '#F7DF1E' }} /> },
+            { name: "React.js", icon: <SiReact style={{ color: '#61DAFB' }} /> },
+            { name: "Next.js", icon: <SiNextdotjs style={{ color: 'white' }} /> },
+            { name: "TypeScript", icon: <SiTypescript style={{ color: '#3178C6' }} /> },
+            { name: "HTML5/CSS3", icon: <FaCode style={{ color: '#E34F26' }} /> },
+        ]
     },
     {
-        title: "Engenharia de IA",
-        icon: <FaBrain />,
-        skills: ["LLM Integration", "RPA Automation", "IA Engineering", "Python"]
-    },
-    {
-        title: "Infraestrutura",
+        title: "DevOps & Infraestrutura",
         icon: <FaCloud />,
-        skills: ["GCP", "Docker", "Kubernetes", "CI/CD"]
+        desc: "Arquitetura escalável, containerização e orquestração em nuvem.",
+        skills: [
+            { name: "Docker", icon: <SiDocker style={{ color: '#2496ED' }} /> },
+            { name: "Kubernetes", icon: <SiKubernetes style={{ color: '#326CE5' }} /> },
+            { name: "GCP", icon: <SiGooglecloud style={{ color: '#4285F4' }} /> },
+            { name: "AWS", icon: <SiAmazonaws style={{ color: '#FF9900' }} /> },
+            { name: "Linux", icon: <SiLinux style={{ color: '#FCC624' }} /> },
+            { name: "CI/CD", icon: <FaInfinity style={{ color: '#4caf50' }} /> },
+            { name: "Git", icon: <SiGit style={{ color: '#F05032' }} /> },
+        ]
+    },
+    {
+        title: "Dados & Ferramentas",
+        icon: <FaDatabase />,
+        desc: "Gestão eficiente de dados e boas práticas de versionamento.",
+        skills: [
+            { name: "PostgreSQL", icon: <SiPostgresql style={{ color: '#336791' }} /> },
+            { name: "Redis", icon: <SiRedis style={{ color: '#DC382D' }} /> },
+            { name: "GraphQL", icon: <SiGraphql style={{ color: '#E10098' }} /> },
+            { name: "Git/GitHub", icon: <SiGit style={{ color: '#F05032' }} /> },
+        ]
     }
 ];
 
@@ -48,7 +87,7 @@ const education = [
 
 const About = () => {
     return (
-        <section id="sobre" className="section-padding" style={{ paddingBottom: '100px', paddingTop: '100px' }}>
+        <section id="sobre" className="section-padding" style={{ paddingBottom: '100px', paddingTop: '100px', maxWidth: '1400px' }}>
 
             {/* SKILLS SECTION */}
             <motion.div
@@ -58,51 +97,66 @@ const About = () => {
                 style={{ marginBottom: '6rem' }}
             >
                 <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem', textAlign: 'center' }}>
-                    Stack <span className="gradient-text">Tecnológico</span>
+                    Tecnologias que <span className="gradient-text">domino</span>
                 </h2>
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                    gap: '2rem'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gap: '1.5rem'
                 }}>
                     {skillCategories.map((cat, i) => (
                         <motion.div
                             key={i}
-                            whileHover={{ y: -5 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1 }}
+                            whileHover={{ y: -5, backgroundColor: 'var(--bg-card-hover)' }}
                             style={{
                                 background: 'var(--bg-card)',
                                 padding: '2rem',
                                 borderRadius: '16px',
-                                border: '1px solid var(--glass-border)',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '1rem'
+                                border: '1px solid rgba(255,255,255,0.05)',
+                                transition: 'all 0.3s ease'
                             }}
                         >
                             <div style={{
                                 fontSize: '2rem',
                                 color: 'var(--primary)',
-                                background: 'var(--primary-dim)',
-                                width: '60px', height: '60px',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                borderRadius: '12px',
-                                marginBottom: '0.5rem'
+                                marginBottom: '1.5rem',
+                                background: 'rgba(255, 31, 31, 0.1)',
+                                width: '60px',
+                                height: '60px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: '12px'
                             }}>
                                 {cat.icon}
                             </div>
-                            <h3 style={{ fontSize: '1.2rem' }}>{cat.title}</h3>
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                                {cat.skills.map((skill, idx) => (
-                                    <span key={idx} style={{
+
+                            <h3 style={{ marginBottom: '1rem', fontSize: '1.4rem' }}>{cat.title}</h3>
+
+                            <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', fontSize: '0.95rem' }}>
+                                {cat.desc}
+                            </p>
+
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem' }}>
+                                {cat.skills.map((skill, j) => (
+                                    <div key={j} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem',
+                                        padding: '0.5rem 0.8rem',
+                                        background: 'rgba(255,255,255,0.03)',
+                                        borderRadius: '8px',
                                         fontSize: '0.85rem',
-                                        color: 'var(--text-muted)',
-                                        border: '1px solid var(--glass-border)',
-                                        padding: '4px 10px',
-                                        borderRadius: '20px'
+                                        border: '1px solid rgba(255,255,255,0.05)'
                                     }}>
-                                        {skill}
-                                    </span>
+                                        <span style={{ fontSize: '1.1rem' }}>{skill.icon}</span>
+                                        <span>{skill.name}</span>
+                                    </div>
                                 ))}
                             </div>
                         </motion.div>
