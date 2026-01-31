@@ -228,6 +228,18 @@ const DigitalEagle = ({ trigger }) => {
     useEffect(() => {
         if (trigger) {
             const timer = setTimeout(() => setActive(true), 300)
+
+            // Audio: Screech
+            const screech = new Audio('/audio/eagle_screech.mp3')
+            screech.volume = 0.6
+            screech.play().catch(e => console.warn("Audio play failed", e))
+
+            // Audio: Wings (Looping texture)
+            const wings = new Audio('/audio/wings_flap.mp3')
+            wings.volume = 0.4
+            wings.playbackRate = 1.2
+            wings.play().catch(e => console.warn("Audio play failed", e))
+
             return () => clearTimeout(timer)
         }
     }, [trigger])
@@ -407,6 +419,10 @@ const Intro = ({ onEnter }) => {
 
         setTimeout(() => {
             setFlash(true) // TRIGGER FLASH
+            // Audio: Flashbang
+            const bang = new Audio('/audio/flashbang.mp3')
+            bang.volume = 0.8
+            bang.play().catch(e => console.warn("Audio play failed", e))
         }, 1700)
 
         setTimeout(() => {
