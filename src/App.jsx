@@ -12,7 +12,22 @@ import AllProjects from './components/AllProjects'
 import { AnimatePresence, motion } from 'framer-motion'
 
 function App() {
-    const [showIntro, setShowIntro] = useState(true)
+    const [showIntro, setShowIntro] = useState(() => {
+        // Cooldown Check (60 seconds)
+        const lastView = localStorage.getItem('intro_last_view')
+        if (lastView) {
+            const diff = Date.now() - parseInt(lastView)
+            if (diff < 60000) return false
+        }
+        return true
+    })
+
+    // Update timestamp if showing
+    React.useEffect(() => {
+        if (showIntro) {
+            localStorage.setItem('intro_last_view', Date.now().toString())
+        }
+    }, [showIntro])
 
     return (
         <div className="app-container">
