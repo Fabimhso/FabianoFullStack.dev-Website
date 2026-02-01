@@ -612,7 +612,7 @@ const Intro = ({ onEnter }) => {
                                                 e.target.style.color = '#000'
                                             }}
                                         >
-                                            Enter Experience
+                                            Entrar no Sistema
                                         </button>
                                     </div>
                                 </div>
