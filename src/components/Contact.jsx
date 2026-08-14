@@ -13,13 +13,13 @@ const Contact = () => {
             }}>
                 <h2 style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>Vamos trabalhar <span className="gradient-text">juntos</span></h2>
                 <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto 3rem' }}>
-                    Tem um projeto em mente? Estou aceitando novos projetos e demandas.
+                    Precisa de infraestrutura resiliente, automação CI/CD, segurança DevSecOps ou soluções em IA/MLOps? Estou disponível para novos projetos e demandas.
                 </p>
 
                 <motion.a
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    href="https://wa.me/5521967482533"
+                    href="https://wa.me/5521967340954"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -40,7 +40,7 @@ const Contact = () => {
             </div>
 
             <footer style={{ marginTop: '5rem', color: 'var(--text-dim)', fontSize: '0.9rem' }}>
-                <p>© {new Date().getFullYear()} FabianoFullStack.dev. Todos os direitos reservados.</p>
+                <p>© {new Date().getFullYear()} FabianoDevOps.dev. Todos os direitos reservados.</p>
                 <p>Feito com React.js & cafeína premium.</p>
             </footer>
         </section>

@@ -2,13 +2,48 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const experiences = [
-    { role: "Engenheiro Fundador de Software / IA", company: "Alnitak Vision AI", period: "2025 - Atual", desc: "Liderando inovação em IA." },
-    { role: "Engenheiro de Software / IA (Contrato)", company: "Escritório Jurídico Eduardo Mesquita", period: "2025 - 2025", desc: "Soluções de IA para Legal Tech." },
-    { role: "Engenheiro de Software Estagiário", company: "FullStore", period: "2025 - Atual", desc: "Desenvolvimento Full-Stack." },
-    { role: "Engenheiro Full-Stack (Freelancer)", company: "FabianoFullStack.dev", period: "2023 - 2024", desc: "Entrega de soluções de software personalizadas." },
-    { role: "Engenheiro Full-Stack", company: "Rikz Company", period: "2022 - 2023", desc: "Desenvolvimento de aplicações web de ponta a ponta." },
-    { role: "Analista de Banco de Dados", company: "Alterdata Software", period: "2022", desc: "Gestão e otimização de bancos de dados." },
-    { role: "Desenvolvedor Pawno", company: "Servidor GTA SAMP", period: "2012 - 2015", desc: "Experiência inicial com scripting de jogos." },
+    {
+        role: "Software & Infrastructure Engineer | Zoho Specialist",
+        company: "FullStore",
+        period: "2025 - 2026",
+        desc: "Arquitetura e infraestrutura core (fullstore.io), autenticação DNS rigorosa (SPF, DKIM, DMARC) para proteção de domínio, automações e pipelines de dados com bot em Python, modelagem de banco de dados SQL e chatbot com ML (ZIA) com 98% de precisão."
+    },
+    {
+        role: "Scholarship - Back-End & DevSecOps Engineer",
+        company: "Sebrae (Programa SuperNova)",
+        period: "2026",
+        desc: "Bolsista do programa SEBRAE SuperNova focado em engenharia e escalabilidade de startups; cofundador e responsável pela arquitetura de back-end e implementação de práticas DevSecOps da plataforma Adaptmind."
+    },
+    {
+        role: "DevSecOps & Full-Stack Software Engineer",
+        company: "Alo Sistemas",
+        period: "2026",
+        desc: "Validação de segurança, identificação e mitigação de vulnerabilidades, além de arquitetura e escalabilidade do software Alô ERP com integração de IA."
+    },
+    {
+        role: "Scholarship – Project Lead & ML Engineer | AI Back-End",
+        company: "Feso (Alnitak Vision AI)",
+        period: "2025 - 2026",
+        desc: "Vencedor do Prêmio 'Ideias Inovadoras' com bolsa de fomento para liderar o time de desenvolvimento, arquitetura back-end e visão computacional avançada com eye-tracking para acessibilidade."
+    },
+    {
+        role: "Residência / Especialização em Engenharia de ML & MLOps",
+        company: "FDTE (USP)",
+        period: "2025 - 2026",
+        desc: "Desenvolvimento de pipelines de dados e MLOps otimizados (redução de 70% no tempo de preparação), implementação de modelos preditivos, LLMs com RAG e Few-Shot Prompting, e visão computacional."
+    },
+    {
+        role: "Analista DevOps",
+        company: "Rikz Company",
+        period: "2023 - 2025",
+        desc: "Suporte e evolução de aplicações em Linux com Docker, Node.js, Python e Bash. Implantação de pipelines em GitLab CI com templates reutilizáveis (redução de 55% no tempo de execução), otimização de performance web (de 62% para 98%), resolução de incidentes críticos em APIs e bancos de dados, e arquitetura DevSecOps completa para plataforma iGaming."
+    },
+    {
+        role: "Analista de Banco de Dados & Infraestrutura",
+        company: "Alterdata Software",
+        period: "2022",
+        desc: "Suporte e manutenção de bancos MySQL e PostgreSQL, infraestrutura Windows Server, Docker, gerenciamento de redes/DNS e implementação de cultura DevOps."
+    },
 ];
 
 const Experience = () => {

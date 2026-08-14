@@ -1,82 +1,83 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGavel, FaBolt, FaMobileAlt, FaShoppingBag, FaLaptopCode, FaChartLine, FaWhatsapp } from 'react-icons/fa';
-import { SiReact, SiNodedotjs, SiNextdotjs, SiFirebase, SiStripe, SiGooglecloud, SiTypescript, SiJavascript, SiPython, SiGoland, SiElectron } from 'react-icons/si';
+import { FaGavel, FaBolt, FaMobileAlt, FaLaptopCode, FaChartLine, FaShieldAlt, FaServer, FaDatabase } from 'react-icons/fa';
+import { SiReact, SiNodedotjs, SiNextdotjs, SiFirebase, SiGooglecloud, SiPython, SiGoland, SiDocker, SiPostgresql, SiMysql, SiLinux, SiGitlab } from 'react-icons/si';
 
 const clients = [
     {
-        name: "Eduardo Mesquita Advogados",
-        icon: <FaGavel />,
-        desc: "Desenvolvi a IA SuaSecretaria.app, uma secretaria virtual para advogados.",
+        name: "FullStore",
+        icon: <FaBolt />,
+        desc: "Desenvolvi a infraestrutura core (fullstore.io), autenticação DNS (SPF/DKIM/DMARC), pipelines de dados com bot em Python e chatbot com ML.",
         tags: [
-            { name: "React", icon: <SiReact /> },
             { name: "Node.js", icon: <SiNodedotjs /> },
             { name: "Python", icon: <SiPython /> },
-            { name: "IA", icon: <FaLaptopCode /> }
+            { name: "DNS Sec", icon: <FaShieldAlt /> },
+            { name: "SQL", icon: <FaDatabase /> },
+            { name: "React", icon: <SiReact /> }
         ],
-        color: "#d4af37" // Gold
+        color: "#a800ff"
     },
     {
-        name: "Juliana Lima Escritório",
-        icon: <FaGavel />,
-        desc: "Desenvolvi um sistema de gestão de processos para advogados, com automação de documentos e IA.",
+        name: "Alo Sistemas",
+        icon: <FaMobileAlt />,
+        desc: "Auditoria de segurança, mitigação de vulnerabilidades e escalabilidade de infraestrutura para o software Alô ERP com IA.",
         tags: [
-            { name: "React", icon: <SiReact /> },
-            { name: "Node.js", icon: <SiNodedotjs /> },
+            { name: "DevSecOps", icon: <FaShieldAlt /> },
             { name: "Python", icon: <SiPython /> },
-            { name: "CRM", icon: <FaChartLine /> },
-            { name: "Cloud", icon: <SiGooglecloud /> }
+            { name: "Golang", icon: <SiGoland /> },
+            { name: "Firebase", icon: <SiFirebase /> },
+            { name: "Linux", icon: <SiLinux /> }
         ],
-        color: "#c0c0c0" // Silver
+        color: "#ff1f1f"
+    },
+    {
+        name: "Sebrae (SuperNova)",
+        icon: <FaLaptopCode />,
+        desc: "Cofundador e responsável pela arquitetura Back-End e implementação de pipelines seguros de DevSecOps para a plataforma Adaptmind.",
+        tags: [
+            { name: "DevSecOps", icon: <FaShieldAlt /> },
+            { name: "Node.js", icon: <SiNodedotjs /> },
+            { name: "Cloud", icon: <SiGooglecloud /> },
+            { name: "Python", icon: <SiPython /> }
+        ],
+        color: "#00f2ff"
+    },
+    {
+        name: "Eduardo Mesquita Advogados",
+        icon: <FaGavel />,
+        desc: "Desenvolvi a IA SuaSecretaria.app, automação inteligente e triagem automatizada com NLP para o escritório.",
+        tags: [
+            { name: "Python", icon: <SiPython /> },
+            { name: "FastAPI", icon: <SiPython /> },
+            { name: "Cloud AI", icon: <SiGooglecloud /> },
+            { name: "React", icon: <SiReact /> }
+        ],
+        color: "#d4af37"
+    },
+    {
+        name: "Alterdata Software",
+        icon: <FaChartLine />,
+        desc: "Suporte e manutenção de bancos de dados MySQL/PostgreSQL, infraestrutura Windows Server, Docker e cultura DevOps.",
+        tags: [
+            { name: "PostgreSQL", icon: <SiPostgresql /> },
+            { name: "MySQL", icon: <SiMysql /> },
+            { name: "Docker", icon: <SiDocker /> },
+            { name: "DevOps", icon: <FaServer /> }
+        ],
+        color: "#ffdd00"
     },
     {
         name: "Rikz Company",
         icon: <FaLaptopCode />,
-        desc: "Desenvolvi o RIKZMetrics, um dashboard integrado para gestão de métricas de marketing digital.",
+        desc: "Atuei como Analista DevOps: pipelines GitLab CI com redução de 55% no tempo de execução, otimização de performance (62% para 98%) e infraestrutura DevSecOps.",
         tags: [
-            { name: "Next.js", icon: <SiNextdotjs /> },
-            { name: "Golang", icon: <SiGoland /> },
-            { name: "Python", icon: <SiPython /> },
-            { name: "UI/UX", icon: <FaLaptopCode /> }
-        ],
-        color: "#00f2ff" // Cyan
-    },
-    {
-        name: "Rota Elétrica",
-        icon: <FaBolt />,
-        desc: "Dashboard administrativo para gestão de frotas, sistema PDV e automação de serviços.",
-        tags: [
-            { name: "React", icon: <SiReact /> },
-            { name: "Node.js", icon: <SiNodedotjs /> },
-            { name: "Electron", icon: <SiElectron /> },
-            { name: "Python", icon: <SiPython /> },
-            { name: "Dashboard", icon: <FaChartLine /> }
-        ],
-        color: "#ffdd00" // Yellow
-    },
-    {
-        name: "Alô Mobile",
-        icon: <FaMobileAlt />,
-        desc: "Sistema de gestão de estoque e vendas para lojas de celulares.",
-        tags: [
-            { name: "React Native", icon: <SiReact /> },
-            { name: "Golang", icon: <SiGoland /> },
-            { name: "Python", icon: <SiPython /> },
-            { name: "Firebase", icon: <SiFirebase /> }
-        ],
-        color: "#ff1f1f" // Red
-    },
-    {
-        name: "Loja TrimTrim",
-        icon: <FaShoppingBag />,
-        desc: "Plataforma de vendas online. Utilizei Stripe, React, API do WhatsApp e Python.",
-        tags: [
-            { name: "Stripe", icon: <SiStripe /> },
-            { name: "React", icon: <SiReact /> },
-            { name: "WhatsApp API", icon: <FaWhatsapp /> },
+            { name: "GitLab CI", icon: <SiGitlab /> },
+            { name: "Docker", icon: <SiDocker /> },
+            { name: "Linux", icon: <SiLinux /> },
+            { name: "DevSecOps", icon: <FaShieldAlt /> },
             { name: "Python", icon: <SiPython /> }
         ],
-        color: "#a800ff" // Purple
+        color: "#c0c0c0"
     }
 ];
 

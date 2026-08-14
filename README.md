@@ -1,6 +1,6 @@
-# FabianoFullStack.dev - Portfolio
+# FabianoDevOps.dev - Portfolio
 
-Project built with modern web technologies to showcase my work as a Full-Stack Engineer.
+Project built with modern web technologies to showcase my work as a DevOps & Cloud Infrastructure Engineer.
 
 DONT USE. THIS IS NOT A OPEN SOURCE PROJECT. THIS IS A PRIVATE PROJECT.
 

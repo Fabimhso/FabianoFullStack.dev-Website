@@ -1,30 +1,31 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { FaCrown, FaTrophy, FaGlobe } from 'react-icons/fa';
+import { FaCrown, FaShieldAlt, FaGlobe, FaTrophy, FaServer } from 'react-icons/fa';
 
 const projects = [
     {
         title: "Alnitak Vision AI",
-        subtitle: "Projeto Premiado",
+        subtitle: "Projeto Campeão FESO · IA & Visão",
         tier: "gold",
         icon: <FaCrown />,
-        desc: "Inovação em visão computacional e inteligência artificial avançada.",
+        desc: "Campeão do Ideias Inovadoras FESO. Visão computacional avançada com eye-tracking para permitir que pessoas tetraplégicas controlem o computador.",
         link: "#"
     },
     {
-        title: "SuaSecretária.app",
-        subtitle: "Em uso por +200 escritórios",
-        icon: <FaTrophy />,
-        desc: "Automação inteligente para gestão jurídica e atendimento.",
+        title: "Adaptmind",
+        subtitle: "Sebrae SuperNova · DevSecOps",
+        tier: "silver",
+        icon: <FaShieldAlt />,
+        desc: "Plataforma desenvolvida no programa SEBRAE SuperNova com foco em arquitetura resiliente, pipelines seguros de DevSecOps e escala de infraestrutura.",
         link: "#"
     },
     {
-        title: "Remot3.dev",
-        subtitle: "Vagas remotas web3",
+        title: "Alô ERP & Sistemas",
+        subtitle: "DevSecOps & Cloud POS",
         tier: "bronze",
         icon: <FaGlobe />,
-        desc: "Plataforma conectando talentos a oportunidades globais na Web3.",
+        desc: "Auditoria de segurança, mitigação de vulnerabilidades e escalabilidade de infraestrutura para sistema ERP/PDV integrado com IA.",
         link: "#"
     }
 ];

@@ -581,7 +581,7 @@ const Intro = ({ onEnter }) => {
                                         letterSpacing: '-2px',
                                         lineHeight: '1.2'
                                     }}>
-                                        FABIANO<span style={{ color: 'var(--primary)' }}>FULLSTACK</span>.DEV
+                                        FABIANO<span style={{ color: 'var(--primary)' }}>DEVOPS</span>.DEV
                                     </h1>
                                     <div style={{ width: '50px', height: '2px', background: 'var(--secondary)', margin: '1.5rem auto' }} />
 

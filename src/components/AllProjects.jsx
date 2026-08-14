@@ -1,62 +1,62 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaCrown, FaRobot, FaNewspaper, FaArrowLeft, FaTrophy, FaGlobe, FaServer } from 'react-icons/fa';
+import { FaCrown, FaRobot, FaArrowLeft, FaTrophy, FaGlobe, FaServer, FaShieldAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const allProjects = [
     {
         title: "Alnitak Vision AI",
-        subtitle: "Acessibilidade & IA",
+        subtitle: "Acessibilidade & IA · Prêmio FESO",
         tier: "gold",
         icon: <FaCrown />,
-        desc: "Projeto campeão do IDEIAS INOVADORAS da Universidade FESO. Visa possibilitar pessoas tetraplégicas a interagirem com o computador através de Eye-tracking. Utiliza visão computacional avançada para converter o movimento ocular em comandos de cursor.",
+        desc: "Projeto campeão do IDEIAS INOVADORAS da Universidade FESO com bolsa de fomento. Visa possibilitar pessoas tetraplégicas a interagirem com o computador através de Eye-tracking, convertendo o movimento ocular em comandos de cursor.",
         link: "#",
-        tech: ["Python", "OpenCV", "Electron.js", "Node.js"]
+        tech: ["Python", "OpenCV", "Electron.js", "Node.js", "AI/ML"]
     },
     {
-        title: "EmotionCopy.AI",
-        subtitle: "Marketing Inteligente",
+        title: "Adaptmind",
+        subtitle: "Sebrae SuperNova · DevSecOps",
         tier: "silver",
-        icon: <FaRobot />,
-        desc: "Um projeto que utiliza Inteligência Artificial para gerar copies persuasivas e personalizadas para utilização em mídias sociais e campanhas de marketing, otimizando o engajamento e conversão.",
+        icon: <FaShieldAlt />,
+        desc: "Plataforma desenvolvida no programa SEBRAE SuperNova para aceleração e escala de startups. Arquitetura resiliente de back-end com implementação de pipelines e segurança contínua DevSecOps.",
         link: "#",
-        tech: ["Python", "FastAPI", "Node.js", "React.js"]
+        tech: ["Node.js", "DevSecOps", "CI/CD", "Cloud", "Python"]
     },
     {
-        title: "01 Portal",
-        subtitle: "Portal de Notícias",
+        title: "Alô ERP & Sistemas",
+        subtitle: "DevSecOps & Cloud POS",
         tier: "bronze",
-        icon: <FaNewspaper />,
-        desc: "Um portal de notícias sobre tecnologia e inovação, focado em trazer as últimas novidades do mundo tech. Feito em 2021, conseguiu obter mais de 2 mil visitas orgânicas por mês graças a uma estratégia eficiente de SEO e conteúdo relevante.",
+        icon: <FaGlobe />,
+        desc: "Auditoria e validação de segurança, mitigação de vulnerabilidades e escalabilidade de infraestrutura para sistema ERP e PDV automatizado com IA.",
         link: "#",
-        tech: ["React.js", "Node.js", "React Native"]
+        tech: ["Python", "Golang", "Firebase", "Linux", "DevSecOps"]
+    },
+    {
+        title: "FullStore Platform & Infra",
+        subtitle: "Infraestrutura & DNS Security",
+        tier: "default",
+        icon: <FaServer />,
+        desc: "Infraestrutura corporativa web (fullstore.io), autenticação DNS rigorosa (SPF, DKIM, DMARC) contra spoofing e phishing, pipelines de dados com bot em Python e chatbot com ML (ZIA).",
+        link: "#",
+        tech: ["React.js", "Node.js", "Python", "SQL", "DNS Sec"]
+    },
+    {
+        title: "BirdOps.app",
+        subtitle: "Orquestração DevOps & AIOps",
+        tier: "default",
+        icon: <FaServer />,
+        desc: "Projeto de orquestração de dados, observabilidade e automação para otimização de fluxos de trabalho DevOps e AIOps.",
+        link: "#",
+        tech: ["Golang", "Gin", "Docker", "DevOps", "AIOps"]
     },
     {
         title: "SuaSecretária.app",
-        subtitle: "Gestão Jurídica",
+        subtitle: "Automação & IA Jurídica",
         tier: "default",
         icon: <FaTrophy />,
         desc: "Automação inteligente para gestão jurídica e atendimento. Chatbot com NLP para triagem de clientes e agendamento automático.",
         link: "#",
-        tech: ["React.js", "Python", "FastAPI", "Google API AI"]
-    },
-    {
-        title: "Remot3.dev",
-        subtitle: "Vagas Web3",
-        tier: "default",
-        icon: <FaGlobe />,
-        desc: "Plataforma conectando talentos a oportunidades globais na Web3. Smart contracts para pagamentos seguros e verificados.",
-        link: "#",
-        tech: ["Next.js", "React.js", "Node.js"]
-    },
-    {
-        title: "BirdOps.app",
-        subtitle: "Orquestração DevOps/AIOps",
-        tier: "default",
-        icon: <FaServer />,
-        desc: "Projeto de orquestração de dados para melhor otimização de trabalhos devops/aiops.",
-        link: "#",
-        tech: ["Golang", "Gin", "React.js", "Next.js"]
+        tech: ["React.js", "Python", "FastAPI", "Google Cloud AI"]
     }
 ];
 

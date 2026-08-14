@@ -13,11 +13,12 @@ const Hero = () => {
                 >
                     <h1 style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 1.1, marginBottom: '1.5rem', fontWeight: 700 }}>
                         Construindo <span className="gradient-text">Qualidade</span><br />
-                        em <span className="gradient-text">Software</span>.
+                        em <span className="gradient-text">Infraestrutura</span><br />
+                        e <span className="gradient-text">Blindando Nuvem</span>.
                     </h1>
 
                     <p style={{ maxWidth: '600px', color: 'var(--text-muted)', fontSize: '1.2rem', marginBottom: '2.5rem' }}>
-                        Engenheiro Full-Stack especializado em construir aplicações robustas, especialista em IA.
+                        Engenheiro de DevOps & Infraestrutura especializado em DevSecOps, MLOps e arquiteturas resilientes em nuvem.
                     </p>
 
                     <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
