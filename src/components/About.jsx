@@ -50,7 +50,7 @@ const skillCategories = [
         ]
     },
     {
-        title: "Back-End & Dados",
+        title: "Back-End",
         icon: <FaServer />,
         desc: "APIs resilientes, scripts de automação, gestão e otimização de bancos de dados.",
         skills: [

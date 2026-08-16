@@ -7,6 +7,7 @@ import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Intro from './components/Intro'
 import Clients from './components/Clients'
+import BestProjects from './components/BestProjects'
 
 import { Routes, Route } from 'react-router-dom'
 import AllProjects from './components/AllProjects'
@@ -65,6 +66,7 @@ function App() {
                                     <About />
                                     <Experience />
                                     <Clients />
+                                    <BestProjects />
                                     <Contact />
                                 </>
                             } />
