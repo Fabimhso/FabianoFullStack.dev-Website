@@ -16,7 +16,8 @@ const Navbar = () => {
 
     const navLinks = [
         { title: 'Início', href: '#' },
-        { title: 'Sobre', href: '#sobre' },
+        { title: 'Sobre Mim', href: '#sobre-mim' },
+        { title: 'Skills & Certificações', href: '#sobre' },
         { title: 'Jornada', href: '#experiencia' },
         { title: 'Contato', href: '#contato' },
     ];
