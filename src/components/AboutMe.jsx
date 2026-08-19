@@ -1,68 +1,84 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Stars, Float, Sphere, OrbitControls, Trail } from '@react-three/drei';
+import { OrbitControls, Stars } from '@react-three/drei';
+import * as THREE from 'three';
 
-// Componente para planetas orbitando
-const OrbitingPlanet = ({ radius, speed, size, color, offset = 0 }) => {
-    const ref = useRef();
+const CyberGalaxy = () => {
+    const pointsRef = useRef();
+    const particlesCount = 10000;
+    
+    const [positions, colors] = useMemo(() => {
+        const positions = new Float32Array(particlesCount * 3);
+        const colors = new Float32Array(particlesCount * 3);
+        
+        const colorInside = new THREE.Color('#ff003c'); // Red / Cyber
+        const colorOutside = new THREE.Color('#6b00ff'); // Purple
+        
+        for(let i = 0; i < particlesCount; i++) {
+            const i3 = i * 3;
+            
+            // Galaxy spiral math
+            const radius = Math.random() * 15;
+            const branchAngle = ((i % 4) / 4) * Math.PI * 2; // 4 branches
+            const spinAngle = radius * 0.3;
+            
+            const randomX = Math.pow(Math.random(), 2) * (Math.random() < 0.5 ? 1 : -1) * 0.4 * (15 - radius);
+            const randomY = Math.pow(Math.random(), 2) * (Math.random() < 0.5 ? 1 : -1) * 0.4 * (15 - radius);
+            const randomZ = Math.pow(Math.random(), 2) * (Math.random() < 0.5 ? 1 : -1) * 0.4 * (15 - radius);
+
+            positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+            positions[i3+1] = randomY * 0.3 - 2; // Flattened Y and slightly lowered
+            positions[i3+2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+            
+            // Mixed Colors
+            const mixedColor = colorInside.clone().lerp(colorOutside, radius / 15);
+            colors[i3] = mixedColor.r;
+            colors[i3+1] = mixedColor.g;
+            colors[i3+2] = mixedColor.b;
+        }
+        return [positions, colors];
+    }, []);
+
     useFrame((state) => {
-        const t = state.clock.getElapsedTime() * speed + offset;
-        ref.current.position.x = Math.cos(t) * radius;
-        ref.current.position.z = Math.sin(t) * radius;
+        pointsRef.current.rotation.y = state.clock.getElapsedTime() * 0.05;
     });
+
     return (
-        <Trail width={1} length={4} color={color} attenuation={(t) => t * t}>
-            <mesh ref={ref}>
-                <sphereGeometry args={[size, 32, 32]} />
-                <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5} />
-            </mesh>
-        </Trail>
+        <points ref={pointsRef}>
+            <bufferGeometry>
+                <bufferAttribute attach="attributes-position" count={particlesCount} array={positions} itemSize={3} />
+                <bufferAttribute attach="attributes-color" count={particlesCount} array={colors} itemSize={3} />
+            </bufferGeometry>
+            <pointsMaterial size={0.04} vertexColors={true} transparent opacity={0.8} sizeAttenuation={true} blending={THREE.AdditiveBlending} depthWrite={false} />
+        </points>
     );
 };
 
-// Bandeira do brasil circular simulada
-const BrazilFlagSphere = () => {
+const CyberCore = () => {
     const ref = useRef();
-    useFrame(() => {
-        ref.current.rotation.y += 0.005;
-        ref.current.rotation.x += 0.002;
-    });
-    return (
-        <Float speed={2} rotationIntensity={1} floatIntensity={2}>
-            <mesh ref={ref} position={[3, 0, -2]}>
-                <sphereGeometry args={[1.5, 32, 32]} />
-                {/* Simulating Brazil colors */}
-                <meshStandardMaterial color="#009c3b" roughness={0.3} metalness={0.8} wireframe />
-                <mesh>
-                    <sphereGeometry args={[1.4, 16, 16]} />
-                    <meshStandardMaterial color="#ffdf00" roughness={0.1} />
-                </mesh>
-                <mesh>
-                    <sphereGeometry args={[0.8, 16, 16]} />
-                    <meshStandardMaterial color="#002776" />
-                </mesh>
-            </mesh>
-        </Float>
-    );
-}
+    const innerRef = useRef();
 
-// "Águias" abstratas (pequenos cones voando)
-const AbstractBird = ({ speed, offsetRadius }) => {
-    const ref = useRef();
     useFrame((state) => {
-        const t = state.clock.getElapsedTime() * speed;
-        ref.current.position.x = Math.sin(t) * offsetRadius;
-        ref.current.position.y = Math.cos(t * 1.5) * (offsetRadius / 2);
-        ref.current.position.z = Math.cos(t) * offsetRadius;
-        ref.current.rotation.y = t;
-        ref.current.rotation.z = Math.sin(t * 5) * 0.5; // bater de asas simulado
+        const t = state.clock.getElapsedTime();
+        ref.current.rotation.x = t * 0.2;
+        ref.current.rotation.y = t * 0.3;
+        
+        const s = 1 + Math.sin(t * 2) * 0.03;
+        innerRef.current.scale.set(s, s, s);
     });
+    
     return (
-        <mesh ref={ref}>
-            <coneGeometry args={[0.1, 0.4, 4]} />
-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.2} />
-        </mesh>
+        <group position={[0, -2, 0]}>
+            <mesh ref={ref}>
+                <icosahedronGeometry args={[3, 2]} />
+                <meshStandardMaterial color="#ff003c" wireframe={true} emissive="#ff003c" emissiveIntensity={0.5} transparent opacity={0.15} />
+            </mesh>
+            <mesh ref={innerRef}>
+                <sphereGeometry args={[2.2, 32, 32]} />
+                <meshStandardMaterial color="#000000" emissive="#6b00ff" emissiveIntensity={0.8} />
+            </mesh>
+        </group>
     );
 };
 
@@ -71,23 +87,17 @@ const AboutMe = () => {
         <section id="sobre-mim" style={{ position: 'relative', width: '100%', minHeight: '80vh', overflow: 'hidden', padding: '6rem 2rem' }}>
             {/* 3D Background */}
             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-                <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
-                    <ambientLight intensity={0.5} />
-                    <pointLight position={[10, 10, 10]} intensity={1} />
+                <Canvas camera={{ position: [0, 5, 12], fov: 50 }}>
+                    <ambientLight intensity={0.2} />
+                    <pointLight position={[10, 10, 10]} intensity={1} color="#ff003c" />
+                    <pointLight position={[-10, -10, -10]} intensity={0.5} color="#6b00ff" />
                     
-                    <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+                    <Stars radius={100} depth={50} count={3000} factor={3} saturation={0} fade speed={1} />
                     
-                    <BrazilFlagSphere />
-                    
-                    <OrbitingPlanet radius={4} speed={0.5} size={0.3} color="#00f2ff" offset={0} />
-                    <OrbitingPlanet radius={6} speed={0.3} size={0.5} color="#a800ff" offset={Math.PI} />
-                    <OrbitingPlanet radius={8} speed={0.2} size={0.4} color="#ffdd00" offset={Math.PI / 2} />
+                    <CyberGalaxy />
+                    <CyberCore />
 
-                    <AbstractBird speed={0.8} offsetRadius={5} />
-                    <AbstractBird speed={1.2} offsetRadius={7} />
-                    <AbstractBird speed={0.5} offsetRadius={4} />
-
-                    <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+                    <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 3} />
                 </Canvas>
             </div>
 
@@ -96,12 +106,12 @@ const AboutMe = () => {
                 zIndex: 1, 
                 maxWidth: '800px', 
                 margin: '0 auto', 
-                background: 'rgba(10, 10, 10, 0.6)', 
-                backdropFilter: 'blur(10px)',
+                background: 'rgba(5, 5, 10, 0.6)', 
+                backdropFilter: 'blur(8px)',
                 padding: '3rem',
                 borderRadius: '20px',
-                border: '1px solid rgba(255,255,255,0.1)',
-                boxShadow: '0 0 30px rgba(0,0,0,0.5)',
+                border: '1px solid rgba(255, 0, 60, 0.2)',
+                boxShadow: '0 0 40px rgba(255, 0, 60, 0.1)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -145,12 +155,14 @@ const AboutMe = () => {
                     }}>
                         {['DevOps', 'Cloud', 'DevSecOps', 'MLOps'].map((tag, i) => (
                             <span key={i} style={{
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
+                                background: 'rgba(255, 0, 60, 0.05)',
+                                border: '1px solid rgba(255, 0, 60, 0.3)',
                                 padding: '0.5rem 1.2rem',
                                 borderRadius: '20px',
                                 fontSize: '0.9rem',
-                                color: 'var(--text-main)'
+                                color: '#ff003c',
+                                fontWeight: 'bold',
+                                letterSpacing: '1px'
                             }}>
                                 {tag}
                             </span>
