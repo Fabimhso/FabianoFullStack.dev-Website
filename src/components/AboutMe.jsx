@@ -133,7 +133,7 @@ const AboutMe = () => {
                         fontSize: '1.1rem', 
                         lineHeight: '1.8'
                     }}>
-                        Hoje, minha paixão evoluiu e me consolidei como profissional focado em <strong>DevOps, DevSecOps e MLOps</strong>. Trabalho arquitetando e mantendo infraestruturas em <strong>Cloud</strong> escaláveis, seguras e de alta performance. Sou movido pela inovação e pelo desafio de construir bases sólidas para sistemas complexos.
+                        Adquirindo experiência e gosto na área de infraestrutura desde cedo, resolvi me consolidar como <strong>DevOps</strong>. Unindo a paixão pela inovação tecnológica, ciência e pesquisa, me especializei em ML na USP e juntei ao meu trabalho, me tornando também um <strong>MLOps</strong>. Tendo executado mais de 20 projetos MLOps e DevOps.
                     </p>
 
                     <div style={{ 
